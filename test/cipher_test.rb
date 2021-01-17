@@ -5,7 +5,7 @@ require './lib/enigma'
 require './lib/cipher'
 require 'date'
 
-class EnigmaTest < Minitest::Test
+class CipherTest < Minitest::Test
 
   def setup
     @cipher = Cipher.new
@@ -38,28 +38,34 @@ class EnigmaTest < Minitest::Test
     assert_equal "01234", @cipher.random_number
   end
 
-  # def test_random_number_into_array
-  #   @cipher.stubs(:random_number).returns("12345")
-  #   assert_equal ["1", "2", "3", "4", "5"], @cipher.random_number_array("12345")
-  # end
-
   def test_key_hash_generator
     # skip
-    expected = { :a_shift => 12,
-                 :b_shift => 23,
-                 :c_shift => 34,
-                 :d_shift => 45}
+    expected = { :a => 12,
+                 :b => 23,
+                 :c => 34,
+                 :d => 45}
 
     assert_equal expected, @cipher.key_hash_generator("12345")
   end
 
   def test_offset_hash_generator
     # skip
-    expected = { :a_shift => 4,
-                 :b_shift => 6,
-                 :c_shift => 4,
-                 :d_shift => 1}
+    expected = { :a => 4,
+                 :b => 6,
+                 :c => 4,
+                 :d => 1}
 
     assert_equal expected, @cipher.offset_hash_generator(170121)
+  end
+
+  def test_shift_hash_generator
+    key = "12345"
+    offset = 170121
+    expected = { :a => 16,
+                 :b => 29,
+                 :c => 38,
+                 :d => 46}
+
+    assert_equal expected, @cipher.shift_hash_generator(key, offset)
   end
 end
