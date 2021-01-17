@@ -24,6 +24,10 @@ class EnigmaTest < Minitest::Test
     assert_instance_of Date, @cipher.date
   end
 
+  def test_format_date
+    assert_equal "170121", @cipher.format_date(Date.today)
+  end
+
   def test_randomly_generated_number
     assert_equal 5, @cipher.random_number.length
 

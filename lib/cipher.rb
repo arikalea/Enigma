@@ -1,3 +1,5 @@
+require 'date'
+
 class Cipher
   attr_reader :characters,
               :date
@@ -5,6 +7,10 @@ class Cipher
   def initialize
     @characters = ("a".."z").to_a << " "
     @date = Date.today
+  end
+
+  def format_date(date)
+      date.strftime("%d%m%y")
   end
 
   def random_number
@@ -16,8 +22,7 @@ class Cipher
   #   random_number.split(//).to_a
   # end
 
-#add in array to this method
-  def key_hash_generator(key)
+  def key_hash_generator(key = random_number)
     {a_shift: key.slice(0..1).to_i,
     b_shift: key.slice(1..2).to_i,
     c_shift: key.slice(2..3).to_i,
