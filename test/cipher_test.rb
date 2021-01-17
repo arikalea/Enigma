@@ -1,5 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
+require 'mocha/minitest'
 require './lib/enigma'
 require './lib/cipher'
 require 'date'
@@ -20,6 +21,13 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_date
-    assert_instance_of Date, @cipher.date 
+    assert_instance_of Date, @cipher.date
+  end
+
+  def test_randomly_generated_key
+    key = mock
+
+    key.stubs(:rand).returns(12345)
+    assert_equal "12345", @cipher.random_key
   end
 end
