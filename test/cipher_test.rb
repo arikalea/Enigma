@@ -11,7 +11,15 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_it_exists
-    assert_instance_of Cipher, @cipher 
+    assert_instance_of Cipher, @cipher
   end
 
+  def test_characters
+    assert_equal 27, @cipher.characters.count
+    assert_equal true, @cipher.characters.include?(" ")
+  end
+
+  def test_date
+    assert_instance_of Date, @cipher.date 
+  end
 end
