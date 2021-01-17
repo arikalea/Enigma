@@ -25,7 +25,7 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_format_date
-    assert_equal "170121", @cipher.format_date(Date.today)
+    assert_equal "170121", @cipher.format_date
   end
 
   def test_randomly_generated_number
@@ -43,7 +43,7 @@ class EnigmaTest < Minitest::Test
   #   assert_equal ["1", "2", "3", "4", "5"], @cipher.random_number_array("12345")
   # end
 
-  def test_number_shifting
+  def test_key_hash_generator
     # skip
     expected = { :a_shift => 12,
                  :b_shift => 23,
@@ -51,5 +51,15 @@ class EnigmaTest < Minitest::Test
                  :d_shift => 45}
 
     assert_equal expected, @cipher.key_hash_generator("12345")
+  end
+
+  def test_offset_hash_generator
+    # skip
+    expected = { :a_shift => 4,
+                 :b_shift => 6,
+                 :c_shift => 4,
+                 :d_shift => 1}
+
+    assert_equal expected, @cipher.offset_hash_generator(170121)
   end
 end
