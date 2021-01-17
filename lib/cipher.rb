@@ -7,19 +7,20 @@ class Cipher
     @date = Date.today
   end
 
-  def random_key
-    key = rand(99999).to_s
-    key.rjust 5,"0"
+  def random_number
+    number = rand(99999).to_s
+    number.rjust 5,"0"
   end
 
-  def random_key_array(random_key)
-    random_key.split(//).to_a
-  end
+  # def random_number_array(number = random_number)
+  #   random_number.split(//).to_a
+  # end
 
-  def shift_key(random_key)
-    a_key = random_key.split(0..1).to_a
-    b_key = random_key.split(1..2).to_a
-    c_key = random_key.split(2..3).to_a
-    d_key = random_key.split(3..4).to_a
+#add in array to this method
+  def key_hash_generator(key)
+    {a_shift: key.slice(0..1).to_i,
+    b_shift: key.slice(1..2).to_i,
+    c_shift: key.slice(2..3).to_i,
+    d_shift: key.slice(3..4).to_i}
   end
 end
