@@ -25,9 +25,9 @@ class EnigmaTest < Minitest::Test
   end
 
   def test_randomly_generated_key
-    key = mock
-
-    key.stubs(:rand).returns(12345)
+    assert_equal 5, @cipher.random_key.length
+    
+    @cipher.stubs(:random_key).returns("12345")
     assert_equal "12345", @cipher.random_key
   end
 end

@@ -8,6 +8,6 @@ class Cipher
   end
 
   def random_key
-
+    rand(99999).to_s
   end
 end
