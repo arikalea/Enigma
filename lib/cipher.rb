@@ -8,6 +8,11 @@ class Cipher
   end
 
   def random_key
-    rand(99999).to_s
+    key = rand(99999).to_s
+    key.rjust 5,"0"
+  end
+
+  def shift_key(key)
+
   end
 end

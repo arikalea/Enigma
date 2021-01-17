@@ -26,8 +26,16 @@ class EnigmaTest < Minitest::Test
 
   def test_randomly_generated_key
     assert_equal 5, @cipher.random_key.length
-    
+
     @cipher.stubs(:random_key).returns("12345")
     assert_equal "12345", @cipher.random_key
+
+    @cipher.stubs(:random_key).returns("01234")
+    assert_equal "01234", @cipher.random_key
+  end
+
+  def test_key_shifting
+    @cipher.stubs(:random_key).returns("12345")
+    assert_equal "12", @cipher.shift_key("12345")
   end
 end
