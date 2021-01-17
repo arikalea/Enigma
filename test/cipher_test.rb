@@ -34,7 +34,13 @@ class EnigmaTest < Minitest::Test
     assert_equal "01234", @cipher.random_key
   end
 
+  def test_random_key_into_array
+    @cipher.stubs(:random_key).returns("12345")
+    assert_equal ["1", "2", "3", "4", "5"], @cipher.random_key_array("12345")
+  end
+
   def test_key_shifting
+    skip
     @cipher.stubs(:random_key).returns("12345")
     assert_equal "12", @cipher.shift_key("12345")
   end
