@@ -41,14 +41,24 @@ class Cipher
      d: key_hash_generator(key)[:d] + offset_hash_generator(date)[:d]}
   end
 
-  def encrypt(message, key, date)
+  def shift_letters(message, key, date)
+    #turning message into an array of downcased characters
     letters_to_encrypt = message.downcase.split('')
-    require "pry";binding.pry
-    # key_hash_generator(key)
-    # offset_hash_generator(date)
-    #
-    # encrypted_letters = letters_to_encrypt.map.with_index do |char, index|
-    #   if @characters.include?(char)
+    #iterate over each character of message and be able to access the index of each char starting at 1
+    encrypted_letters = letters_to_encrypt.map.with_index(1) do |char, index|
+      #depending on a characters index within the message, I will need to translate that char based on a shift that relates to that index
+      #if char is at index 1, we want the char to rotate through the alphabet the number of times specified by shift :a
+
+      # if @characters.include?(char)
+      if index == 1
+        char = "1"
+      elsif index == 2
+        char = "2"
+      end
+      require "pry";binding.pry
+    end
+
+
     #     @characters.rotate(@characters.index(char))
     #   end
     #   if @characters.include?(char) && i[0]
@@ -62,9 +72,14 @@ class Cipher
     #   else
     #     char
     #   end
-
-
-
   end
 
+  def characters_shift(shift_amount)
+    index = 0
+    @characters.reduce({}) do |shifted_characters, char|
+      shifted_characters[char] = @characters.rotate(shift_amount)[index]
+      index += 1
+      shifted_characters
+    end
+  end
 end

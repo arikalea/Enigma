@@ -25,7 +25,7 @@ class CipherTest < Minitest::Test
   end
 
   def test_format_date
-    assert_equal "170121", @cipher.format_date
+    assert_equal "180121", @cipher.format_date
   end
 
   def test_randomly_generated_number
@@ -69,10 +69,25 @@ class CipherTest < Minitest::Test
     assert_equal expected, @cipher.shift_hash_generator(key, offset)
   end
 
-  def test_encrypt_message
+  def test_shifted_letters
+    skip
+    message = "hello"
+    # letters_to_encrypt = ["h", "e", "l", "l", "o"]
+    # letters_to_encrypt.map.with_index(1) do |char, index|
+    #
+    # end
     key = "12345"
+
     offset = 170121
 
-    assert_equal "xgwdd", @cipher.encrypt("hello", key, offset)
+    assert_equal "xgwdd", @cipher.shift_letters(message, key, offset)
+  end
+
+  def test_shift_characters_array
+    characters = ("a".."z").to_a << " "
+    shifted_characters = @cipher.characters_shift(16)
+
+    assert_equal characters, shifted_characters.keys
+    assert_equal characters.rotate(16), shifted_characters.values
   end
 end
