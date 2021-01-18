@@ -59,35 +59,32 @@ class CipherTest < Minitest::Test
   end
 
   def test_shift_hash_generator
-    key = "12345"
-    offset = 170121
     expected = { :a => 16,
                  :b => 29,
                  :c => 38,
                  :d => 46}
 
-    assert_equal expected, @cipher.shift_hash_generator(key, offset)
+    assert_equal expected, @cipher.shift_hash_generator("12345", 170121)
   end
 
-  def test_shifted_letters
-    skip
-    message = "hello"
-    # letters_to_encrypt = ["h", "e", "l", "l", "o"]
-    # letters_to_encrypt.map.with_index(1) do |char, index|
-    #
-    # end
-    key = "12345"
-
-    offset = 170121
-
-    assert_equal "xgwdd", @cipher.shift_letters(message, key, offset)
+  def test_encrypt_message
+    rotated_characters = @cipher.make_shifts(16, 29, 38, 46)
+    assert_equal "xgwdd", @cipher.encrpyt("hello", rotated_characters)
   end
 
-  def test_shift_characters_array
+  def test_it_can_identify_character_index
+    rotated_characters = @cipher.make_shifts(16, 29, 38, 46)
+    assert_equal "x", @cipher.identify_index("h", rotated_characters, 1)
+    assert_equal "g", @cipher.identify_index("e", rotated_characters, 2)
+    assert_equal "w", @cipher.identify_index("l", rotated_characters, 3)
+    assert_equal "d", @cipher.identify_index("l", rotated_characters, 4)
+  end
+
+  def test_it_shifted_all_characters
     characters = ("a".."z").to_a << " "
-    shifted_characters = @cipher.characters_shift(16)
+    rotated_characters = @cipher.characters_shift(16)
 
-    assert_equal characters, shifted_characters.keys
-    assert_equal characters.rotate(16), shifted_characters.values
+    assert_equal characters, rotated_characters.keys
+    assert_equal characters.rotate(16), rotated_characters.values
   end
 end

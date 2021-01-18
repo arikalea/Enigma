@@ -41,45 +41,37 @@ class Cipher
      d: key_hash_generator(key)[:d] + offset_hash_generator(date)[:d]}
   end
 
-  def shift_letters(message, key, date)
-    #turning message into an array of downcased characters
+  def encrpyt(message, characters)
     letters_to_encrypt = message.downcase.split('')
-    #iterate over each character of message and be able to access the index of each char starting at 1
     encrypted_letters = letters_to_encrypt.map.with_index(1) do |char, index|
-      #depending on a characters index within the message, I will need to translate that char based on a shift that relates to that index
-      #if char is at index 1, we want the char to rotate through the alphabet the number of times specified by shift :a
-
-      # if @characters.include?(char)
-      if index == 1
-        char = "1"
-      elsif index == 2
-        char = "2"
+      if @characters.include?(char)
+        identify_index(char, characters, index)
+      else
+        char
       end
-      require "pry";binding.pry
-    end
-
-
-    #     @characters.rotate(@characters.index(char))
-    #   end
-    #   if @characters.include?(char) && i[0]
-    #     message_to_encrypt[0].rotate(shift_hash_generator(key, date)[:a])
-    #   elsif @characters.include?(char) && i[1]
-    #     message_to_encrypt[1].rotate(shift_hash_generator(key, date)[:b])
-    #   elsif @characters.include?(char) && i[2]
-    #     message_to_encrypt[2].rotate(shift_hash_generator(key, date)[:c])
-    #   elsif @characters.include?(char) && i[3]
-    #     message_to_encrypt[3].rotate(shift_hash_generator(key, date)[:d])
-    #   else
-    #     char
-    #   end
+    end.join
   end
 
-  def characters_shift(shift_amount)
+  def identify_index(char, characters, index)
+    indexes = {1 => :a, 2 => :b,
+               3 => :c, 0 => :d}
+    remainder = index % 4
+    characters[indexes[remainder]][char]
+  end
+
+  def characters_shift(shift)
     index = 0
-    @characters.reduce({}) do |shifted_characters, char|
-      shifted_characters[char] = @characters.rotate(shift_amount)[index]
+    @characters.reduce({}) do |shifted_character, char|
+      shifted_character[char] = @characters.rotate(shift)[index]
       index += 1
-      shifted_characters
+      shifted_character
     end
+  end
+
+  def make_shifts(a_shift, b_shift, c_shift, d_shift)
+    {a: characters_shift(a_shift),
+     b: characters_shift(b_shift),
+     c: characters_shift(c_shift),
+     d: characters_shift(d_shift)}
   end
 end
