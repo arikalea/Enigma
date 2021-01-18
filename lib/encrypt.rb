@@ -3,11 +3,10 @@ require './lib/enigma'
 enigma = Enigma.new
 
 text_file = File.open(ARGV[0], 'r')
-read_text = text_file.read
-message = gets.chomp
+read_text = text_file.read.chomp
 text_file.close
 
-encrypted_message = enigma.encrypt(message)
+encrypted_message = enigma.encrypt(read_text)
 
 writer = File.open(ARGV[1], 'w')
 writer.write(encrypted_message[:encryption])
