@@ -66,7 +66,7 @@ class CipherTest < Minitest::Test
 
   def test_encrypt_message
     rotated_characters = @cipher.make_shifts(16, 29, 38, 46)
-    assert_equal "xgwdd", @cipher.encrpyt("hello", rotated_characters)
+    assert_equal "xgwdd", @cipher.encrypt("hello", rotated_characters)
   end
 
   def test_it_can_identify_character_index
