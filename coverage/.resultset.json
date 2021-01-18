@@ -3,13 +3,13 @@
     "coverage": {
       "/Users/arikablenker/turing/1module/Projects/Enigma/lib/enigma.rb": {
         "lines": [
-          null,
-          null,
           1,
           null,
           1,
-          4,
           null,
+          null,
+          1,
+          5,
           null,
           null,
           1,
@@ -41,8 +41,8 @@
           null,
           null,
           1,
-          4,
-          4,
+          10,
+          10,
           null,
           null,
           1,
@@ -114,6 +114,6 @@
         ]
       }
     },
-    "timestamp": 1611003828
+    "timestamp": 1611012823
   }
 }
