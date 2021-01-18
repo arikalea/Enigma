@@ -41,30 +41,37 @@ class Cipher
      d: key_hash_generator(key)[:d] + offset_hash_generator(date)[:d]}
   end
 
-  def encrypt(message, key, date)
+  def encrpyt(message, characters)
     letters_to_encrypt = message.downcase.split('')
-    require "pry";binding.pry
-    # key_hash_generator(key)
-    # offset_hash_generator(date)
-    #
-    # encrypted_letters = letters_to_encrypt.map.with_index do |char, index|
-    #   if @characters.include?(char)
-    #     @characters.rotate(@characters.index(char))
-    #   end
-    #   if @characters.include?(char) && i[0]
-    #     message_to_encrypt[0].rotate(shift_hash_generator(key, date)[:a])
-    #   elsif @characters.include?(char) && i[1]
-    #     message_to_encrypt[1].rotate(shift_hash_generator(key, date)[:b])
-    #   elsif @characters.include?(char) && i[2]
-    #     message_to_encrypt[2].rotate(shift_hash_generator(key, date)[:c])
-    #   elsif @characters.include?(char) && i[3]
-    #     message_to_encrypt[3].rotate(shift_hash_generator(key, date)[:d])
-    #   else
-    #     char
-    #   end
-
-
-
+    encrypted_letters = letters_to_encrypt.map.with_index(1) do |char, index|
+      if @characters.include?(char)
+        identify_index(char, characters, index)
+      else
+        char
+      end
+    end.join
   end
 
+  def identify_index(char, characters, index)
+    indexes = {1 => :a, 2 => :b,
+               3 => :c, 0 => :d}
+    remainder = index % 4
+    characters[indexes[remainder]][char]
+  end
+
+  def characters_shift(shift)
+    index = 0
+    @characters.reduce({}) do |shifted_character, char|
+      shifted_character[char] = @characters.rotate(shift)[index]
+      index += 1
+      shifted_character
+    end
+  end
+
+  def make_shifts(a_shift, b_shift, c_shift, d_shift)
+    {a: characters_shift(a_shift),
+     b: characters_shift(b_shift),
+     c: characters_shift(c_shift),
+     d: characters_shift(d_shift)}
+  end
 end

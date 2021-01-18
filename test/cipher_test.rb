@@ -1,7 +1,4 @@
-require 'minitest/autorun'
-require 'minitest/pride'
-require 'mocha/minitest'
-require './lib/enigma'
+require './test/test_helper'
 require './lib/cipher'
 require 'date'
 
@@ -25,7 +22,7 @@ class CipherTest < Minitest::Test
   end
 
   def test_format_date
-    assert_equal "170121", @cipher.format_date
+    assert_equal "180121", @cipher.format_date
   end
 
   def test_randomly_generated_number
@@ -59,20 +56,32 @@ class CipherTest < Minitest::Test
   end
 
   def test_shift_hash_generator
-    key = "12345"
-    offset = 170121
     expected = { :a => 16,
                  :b => 29,
                  :c => 38,
                  :d => 46}
 
-    assert_equal expected, @cipher.shift_hash_generator(key, offset)
+    assert_equal expected, @cipher.shift_hash_generator("12345", 170121)
   end
 
   def test_encrypt_message
-    key = "12345"
-    offset = 170121
+    rotated_characters = @cipher.make_shifts(16, 29, 38, 46)
+    assert_equal "xgwdd", @cipher.encrpyt("hello", rotated_characters)
+  end
 
-    assert_equal "xgwdd", @cipher.encrypt("hello", key, offset)
+  def test_it_can_identify_character_index
+    rotated_characters = @cipher.make_shifts(16, 29, 38, 46)
+    assert_equal "x", @cipher.identify_index("h", rotated_characters, 1)
+    assert_equal "g", @cipher.identify_index("e", rotated_characters, 2)
+    assert_equal "w", @cipher.identify_index("l", rotated_characters, 3)
+    assert_equal "d", @cipher.identify_index("l", rotated_characters, 4)
+  end
+
+  def test_it_shifted_all_characters
+    characters = ("a".."z").to_a << " "
+    rotated_characters = @cipher.characters_shift(16)
+
+    assert_equal characters, rotated_characters.keys
+    assert_equal characters.rotate(16), rotated_characters.values
   end
 end
