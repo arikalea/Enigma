@@ -68,4 +68,11 @@ class CipherTest < Minitest::Test
 
     assert_equal expected, @cipher.shift_hash_generator(key, offset)
   end
+
+  def test_encrypt_message
+    key = "12345"
+    offset = 170121
+
+    assert_equal "xgwdd", @cipher.encrypt("hello", key, offset)
+  end
 end
