@@ -20,7 +20,7 @@ class Enigma
     shift_hash = @cipher.shift_hash_generator(key, date)
     characters = @cipher.make_shifts(-(shift_hash[:a]), -(shift_hash[:b]), -(shift_hash[:c]), -(shift_hash[:d]))
     encrypted_message = @cipher.encrypt(message, characters)
-    encryption = { encryption: encrypted_message,
+    decryption = { decryption: encrypted_message,
                    key: key,
                    date: date}
   end
