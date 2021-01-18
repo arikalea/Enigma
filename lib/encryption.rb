@@ -1,12 +1,13 @@
 require './lib/enigma'
 
-
-original_message = File.open(ARGV[0], 'r')
-message = handle.read
-handle.close
-
 enigma = Enigma.new
-encrypted_message = enigma.encrypt(original_message)
+
+text_file = File.open(ARGV[0], 'r')
+read_text = text_file.read
+message = gets.chomp
+text_file.close
+
+encrypted_message = enigma.encrypt(message)
 
 writer = File.open(ARGV[1], 'w')
 writer.write(encrypted_message[:encryption])

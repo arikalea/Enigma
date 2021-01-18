@@ -1,5 +1,3 @@
-# require_relative 'cipher'
-
 class Enigma
 
   def initialize
