@@ -6,11 +6,11 @@ class Cipher
 
   def initialize
     @characters = ("a".."z").to_a << " "
-    @date = Date.today
+    @date       = Date.today
   end
 
   def format_date
-      @date.strftime("%d%m%y")
+    @date.strftime("%d%m%y")
   end
 
   def random_number
@@ -41,9 +41,9 @@ class Cipher
      d: key_hash_generator(key)[:d] + offset_hash_generator(date)[:d]}
   end
 
-  def encrypt(message, characters)
+  def shift(message, characters)
     letters_to_encrypt = message.downcase.split('')
-    encrypted_letters = letters_to_encrypt.map.with_index(1) do |char, index|
+    letters_to_encrypt.map.with_index(1) do |char, index|
       if @characters.include?(char)
         identify_index(char, characters, index)
       else
@@ -68,10 +68,17 @@ class Cipher
     end
   end
 
-  def make_shifts(a_shift, b_shift, c_shift, d_shift)
-    {a: characters_shift(a_shift),
-     b: characters_shift(b_shift),
-     c: characters_shift(c_shift),
-     d: characters_shift(d_shift)}
+  def encrypt(key, date)
+    {a: characters_shift(shift_hash_generator(key, date)[:a]),
+     b: characters_shift(shift_hash_generator(key, date)[:b]),
+     c: characters_shift(shift_hash_generator(key, date)[:c]),
+     d: characters_shift(shift_hash_generator(key, date)[:d])}
+  end
+
+  def decrypt(key, date)
+    {a: characters_shift(-(shift_hash_generator(key, date)[:a])),
+     b: characters_shift(-(shift_hash_generator(key, date)[:b])),
+     c: characters_shift(-(shift_hash_generator(key, date)[:c])),
+     d: characters_shift(-(shift_hash_generator(key, date)[:d]))}
   end
 end
