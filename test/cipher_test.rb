@@ -36,7 +36,6 @@ class CipherTest < Minitest::Test
   end
 
   def test_key_hash_generator
-    # skip
     expected = { :a => 12,
                  :b => 23,
                  :c => 34,
@@ -46,7 +45,6 @@ class CipherTest < Minitest::Test
   end
 
   def test_offset_hash_generator
-    # skip
     expected = { :a => 4,
                  :b => 6,
                  :c => 4,
@@ -66,17 +64,19 @@ class CipherTest < Minitest::Test
 
   def test_shift_message_characters_encrypt
     rotated_characters = @cipher.encrypt("12345", 170121)
+
     assert_equal "xgwdd", @cipher.shift("hello", rotated_characters)
   end
 
   def test_shift_message_characters_decrypt
     rotated_characters = @cipher.decrypt("12345", 170121)
+
     assert_equal "hello", @cipher.shift("xgwdd", rotated_characters)
   end
 
   def test_it_can_identify_character_index
-    # skip
     rotated_characters = @cipher.encrypt("12345", 170121)
+    
     assert_equal "x", @cipher.identify_index("h", rotated_characters, 1)
     assert_equal "g", @cipher.identify_index("e", rotated_characters, 2)
     assert_equal "w", @cipher.identify_index("l", rotated_characters, 3)

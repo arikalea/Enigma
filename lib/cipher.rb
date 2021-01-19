@@ -43,7 +43,7 @@ class Cipher
 
   def shift(message, characters)
     letters_to_encrypt = message.downcase.split('')
-    encrypted_letters = letters_to_encrypt.map.with_index(1) do |char, index|
+    letters_to_encrypt.map.with_index(1) do |char, index|
       if @characters.include?(char)
         identify_index(char, characters, index)
       else
