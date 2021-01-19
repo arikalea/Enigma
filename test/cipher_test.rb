@@ -64,14 +64,19 @@ class CipherTest < Minitest::Test
     assert_equal expected, @cipher.shift_hash_generator("12345", 170121)
   end
 
-  def test_encrypt_message
-    rotated_characters = @cipher.make_shifts("12345", 170121)
-    assert_equal "xgwdd", @cipher.encrypt("hello", rotated_characters)
+  def test_shift_message_characters_encrypt
+    rotated_characters = @cipher.encrypt("12345", 170121)
+    assert_equal "xgwdd", @cipher.shift("hello", rotated_characters)
+  end
+
+  def test_shift_message_characters_decrypt
+    rotated_characters = @cipher.decrypt("12345", 170121)
+    assert_equal "hello", @cipher.shift("xgwdd", rotated_characters)
   end
 
   def test_it_can_identify_character_index
     # skip
-    rotated_characters = @cipher.make_shifts("12345", 170121)
+    rotated_characters = @cipher.encrypt("12345", 170121)
     assert_equal "x", @cipher.identify_index("h", rotated_characters, 1)
     assert_equal "g", @cipher.identify_index("e", rotated_characters, 2)
     assert_equal "w", @cipher.identify_index("l", rotated_characters, 3)

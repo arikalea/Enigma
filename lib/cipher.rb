@@ -41,7 +41,7 @@ class Cipher
      d: key_hash_generator(key)[:d] + offset_hash_generator(date)[:d]}
   end
 
-  def encrypt(message, characters)
+  def shift(message, characters)
     letters_to_encrypt = message.downcase.split('')
     encrypted_letters = letters_to_encrypt.map.with_index(1) do |char, index|
       if @characters.include?(char)
@@ -68,10 +68,17 @@ class Cipher
     end
   end
 
-  def make_shifts(key, date)
+  def encrypt(key, date)
     {a: characters_shift(shift_hash_generator(key, date)[:a]),
      b: characters_shift(shift_hash_generator(key, date)[:b]),
      c: characters_shift(shift_hash_generator(key, date)[:c]),
      d: characters_shift(shift_hash_generator(key, date)[:d])}
+  end
+
+  def decrypt(key, date)
+    {a: characters_shift(-(shift_hash_generator(key, date)[:a])),
+     b: characters_shift(-(shift_hash_generator(key, date)[:b])),
+     c: characters_shift(-(shift_hash_generator(key, date)[:c])),
+     d: characters_shift(-(shift_hash_generator(key, date)[:d]))}
   end
 end
