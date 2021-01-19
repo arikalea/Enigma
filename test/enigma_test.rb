@@ -20,8 +20,8 @@ class EnigmaTest < Minitest::Test
 
   def test_it_can_encrypt
     expected = {encryption: 'xgwddbgggno',
-                key: '12345',
-                date: '180121'}
+                       key: '12345',
+                      date: '180121'}
 
     assert_equal expected, @enigma.encrypt('hello world', '12345', '180121')
     assert_equal expected, @enigma.encrypt('hello world', '12345')
@@ -29,16 +29,16 @@ class EnigmaTest < Minitest::Test
 
   def test_encrypt_with_uppercase_and_special_characters
     expected = {encryption: 'xgwddbgggno!',
-                key: '12345',
-                date: '180121'}
+                       key: '12345',
+                      date: '180121'}
 
     assert_equal expected, @enigma.encrypt('Hello World!', '12345', '180121')
   end
 
   def test_it_can_decrypt
     expected = {decryption: 'hello world',
-                key: '12345',
-                date: '180121'}
+                       key: '12345',
+                      date: '180121'}
 
     assert_equal expected, @enigma.decrypt('xgwddbgggno','12345', '180121')
   end

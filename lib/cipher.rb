@@ -6,11 +6,11 @@ class Cipher
 
   def initialize
     @characters = ("a".."z").to_a << " "
-    @date = Date.today
+    @date       = Date.today
   end
 
   def format_date
-      @date.strftime("%d%m%y")
+    @date.strftime("%d%m%y")
   end
 
   def random_number
