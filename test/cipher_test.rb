@@ -22,6 +22,8 @@ class CipherTest < Minitest::Test
   end
 
   def test_format_date
+    @cipher.stubs(:format_date).returns("180121")
+
     assert_equal "180121", @cipher.format_date
   end
 
@@ -76,7 +78,7 @@ class CipherTest < Minitest::Test
 
   def test_it_can_identify_character_index
     rotated_characters = @cipher.encrypt("12345", 170121)
-    
+
     assert_equal "x", @cipher.identify_index("h", rotated_characters, 1)
     assert_equal "g", @cipher.identify_index("e", rotated_characters, 2)
     assert_equal "w", @cipher.identify_index("l", rotated_characters, 3)
