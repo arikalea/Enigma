@@ -65,12 +65,13 @@ class CipherTest < Minitest::Test
   end
 
   def test_encrypt_message
-    rotated_characters = @cipher.make_shifts(16, 29, 38, 46)
+    rotated_characters = @cipher.make_shifts("12345", 170121)
     assert_equal "xgwdd", @cipher.encrypt("hello", rotated_characters)
   end
 
   def test_it_can_identify_character_index
-    rotated_characters = @cipher.make_shifts(16, 29, 38, 46)
+    # skip
+    rotated_characters = @cipher.make_shifts("12345", 170121)
     assert_equal "x", @cipher.identify_index("h", rotated_characters, 1)
     assert_equal "g", @cipher.identify_index("e", rotated_characters, 2)
     assert_equal "w", @cipher.identify_index("l", rotated_characters, 3)

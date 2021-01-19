@@ -68,10 +68,10 @@ class Cipher
     end
   end
 
-  def make_shifts(a_shift, b_shift, c_shift, d_shift)
-    {a: characters_shift(a_shift),
-     b: characters_shift(b_shift),
-     c: characters_shift(c_shift),
-     d: characters_shift(d_shift)}
+  def make_shifts(key, date)
+    {a: characters_shift(shift_hash_generator(key, date)[:a]),
+     b: characters_shift(shift_hash_generator(key, date)[:b]),
+     c: characters_shift(shift_hash_generator(key, date)[:c]),
+     d: characters_shift(shift_hash_generator(key, date)[:d])}
   end
 end
